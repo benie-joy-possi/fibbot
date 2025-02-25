@@ -20,4 +20,10 @@ jobs:
       run: docker build -t hello_world_image .
 
     - name: Run Docker image
-      run: docker run hello_world_image 
+      run: docker run hello_world_image > output.txt
+
+    - name: Upload output file as an artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: output-file
+        path: output.txt
