@@ -1,4 +1,5 @@
-name: Hello World Action
+# .github/workflows/test-action.yml
+name: Test Hello World Rust Action
 
 on:
   push:
@@ -9,15 +10,14 @@ on:
       - main
 
 jobs:
-  hello_world_image:
+  test-action:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Uses hello_world_image
-      uses: ./
-      
-
-    
+      - name: Run Hello World Rust Action
+        uses: ./
+        with:
+          entrypoint: ./target/release/fibonacci
