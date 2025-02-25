@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build Docker image
+      run: docker build -t hello_world_image .
+
+    - name: Run Docker image
+      run: docker run hello_world_image > output.txt
+
+    - name: Upload output file as an artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: output-file
+        path: output.txt
