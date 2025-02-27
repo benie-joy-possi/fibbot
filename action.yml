@@ -9,13 +9,12 @@ inputs:
   max_threshold:
     description: 'Maximum threshold'
     required: true
-    default: '500'
+    default: '1000'
 runs:
-  using: 'composite'
-  steps:
-    - name: Run Argument parsing action
-      run: |
-        cargo run -- --enable-fib ${{ inputs.enable_fib}} --max-threshold ${{ inputs.max_threshold}}
-      shell: bash
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.enable_fib}}
+    - ${{ inputs.max_threshold}}
       
   
