@@ -21,6 +21,6 @@ jobs:
         uses: ./
         with:
           enable_fib: 'true'
-          max_threshold: '100'
+          max_threshold: '1000'
         
         
