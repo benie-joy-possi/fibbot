@@ -2,7 +2,7 @@
 name: "Arguments Parsing"
 description: "An action to parse input parameter"
 inputs:
-  enable_feature: 
+  enable_fib: 
     description: 'Enable fibonacci'
     required: true
     default: 'true'
