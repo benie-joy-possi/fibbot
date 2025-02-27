@@ -3,7 +3,7 @@ name: "Arguments Parsing"
 description: "An action to parse input parameter"
 inputs:
   enable_feature: 
-    description: 'Enable feature'
+    description: 'Enable fibonacci'
     required: true
     default: 'true'
   max_threshold:
@@ -15,7 +15,7 @@ runs:
   steps:
     - name: Run Argument parsing action
       run: |
-        cargo run -- --enable-feature ${{ inputs.enable_feature}} --max-threshold ${{ inputs.max_threshold}}
+        cargo run -- --enable-fib ${{ inputs.enable_fib}} --max-threshold ${{ inputs.max_threshold}}
       shell: bash
       
   
