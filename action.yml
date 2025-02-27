@@ -1,6 +1,21 @@
 
-name: "Hello World Rust Action"
-description: "An action that prints 'Hello, world!' using Rust"
+name: "Arguments Parsing"
+description: "An action to parse input parameter"
+inputs:
+  enable_feature: 
+    description: 'Enable feature'
+    required: true
+    default: 'true'
+  max_threshold:
+    description: 'Maximum threshold'
+    required: true
+    default: '1000'
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: 'composite'
+  steps:
+    - name: Run Argument parsing action
+      run: |
+        cargo run -- --enable-feature ${{ inputs.enable_feature}} --max-threshold ${{ inputs.max_threshold}}
+      shell: bash
+      
+  
