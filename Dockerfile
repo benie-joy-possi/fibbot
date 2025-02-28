@@ -11,6 +11,9 @@ COPY src ./src
 # Build the project in release mode
 RUN cargo build --release 
 
+# Run the test
+RUN cargo test
+
 # Use a minimal base image to run the application
 FROM gcr.io/distroless/cc
 
@@ -18,4 +21,4 @@ FROM gcr.io/distroless/cc
 COPY --from=build /app/target/release/fibonacci /usr/local/bin/
 
 # Set the entrypoint to run the application
-ENTRYPOINT ["/usr/local/cargo/bin/cargo", "run", "--", "--enable-fib", "${{ inputs.enable_fib }}", "--max-threshold", "${{ inputs.max_threshold }}"]
+ENTRYPOINT ["./target/release/fibonacci"]
