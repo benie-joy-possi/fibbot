@@ -21,4 +21,4 @@ FROM gcr.io/distroless/cc
 COPY --from=build /app/target/release/fibonacci /usr/local/bin/
 
 # Set the entrypoint to run the application
-ENTRYPOINT ["./target/release/fibonacci"]
+ENTRYPOINT ["fibonacci"]
