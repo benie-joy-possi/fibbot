@@ -1,6 +1,5 @@
 
 mod extract;
-mod fibonnacci;
 use extract::extract_numerical_values;
 use parse::parse;
 mod parse;
