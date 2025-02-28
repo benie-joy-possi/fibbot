@@ -1,5 +1,7 @@
 
-
+mod extract;
+mod fibonnacci;
+use extract::extract_numerical_values;
 use parse::parse;
 mod parse;
 fn main() {
@@ -22,8 +24,10 @@ fn main() {
         }
         Err(e) => eprintln!("Error: {}", e),
     }
-    {}
-    // let (enable_fib, max_threshold) = parse();
+    
+    let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
+    let numbers = extract_numerical_values(sample_content);
+    println!("Extracted numerical values: {:?}", numbers);
 }
 
 #[cfg(test)]
@@ -57,5 +61,11 @@ mod tests {
         let (enable_fib, max_threshold) = result.unwrap();
         assert!(!enable_fib);
         assert_eq!(max_threshold, 200);
+    }
+    #[test]
+    fn test_extract_numerical_values() {
+        let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
+        let numbers = extract_numerical_values(sample_content);
+        assert_eq!(numbers, vec![1, 2, 1,2, 8]);
     }
 }
