@@ -1,0 +1,11 @@
+/home/benie-joy/My_Projects/Projects1/rust_projects/fibbot/target/debug/deps/libtinyvec-0d60a6603848c074.rmeta: /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/lib.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/array.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/array/generated_impl.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/arrayvec.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/arrayvec_drain.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/slicevec.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/tinyvec.rs
+
+/home/benie-joy/My_Projects/Projects1/rust_projects/fibbot/target/debug/deps/tinyvec-0d60a6603848c074.d: /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/lib.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/array.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/array/generated_impl.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/arrayvec.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/arrayvec_drain.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/slicevec.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/tinyvec.rs
+
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/lib.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/array.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/array/generated_impl.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/arrayvec.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/arrayvec_drain.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/slicevec.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinyvec-1.8.1/src/tinyvec.rs:

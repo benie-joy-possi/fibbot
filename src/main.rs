@@ -1,9 +1,38 @@
-
+// mod comment;
 mod extract;
-use extract::extract_numerical_values;
+mod fibonnacci;
+use std::{env, error::Error};
+
+use extract::{extract_numerical_values, fetch_pr_numbers};
+use fibonnacci::fibonacci;
 use parse::parse;
 mod parse;
-fn main() {
+use tokio;
+
+
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+    let args: Vec<String> = env::args().collect();
+    if args.len() < 4{
+        eprintln!("Usage: {} <owner> <repo> <pr_number> <github_token>", args[0]);
+        return Err("Invalid arguments".into());
+    }
+    let owner = &args[1];
+    let repo = &args[2];
+    let pr_number: u64 = args[3].parse()?;
+    // let github_token = &args[4];
+
+    // let octocrab = octocrab::Octocrab::builder()
+    //     .personal_token(github_token.to_string())
+    //     .build()?;
+
+    let pr_numbers_fetch = fetch_pr_numbers(owner, repo, pr_number).await?;
+
+    for &num in &pr_numbers_fetch {
+        let fibonnacci_result = fibonacci(num);
+        println!("the fibonacci is : {}", fibonnacci_result);
+    }
     println!("Hello, World!");
 
     match parse() {
@@ -23,10 +52,11 @@ fn main() {
         }
         Err(e) => eprintln!("Error: {}", e),
     }
-    
+
     let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
     let numbers = extract_numerical_values(sample_content);
     println!("Extracted numerical values: {:?}", numbers);
+    Ok(())
 }
 
 #[cfg(test)]
@@ -65,6 +95,6 @@ mod tests {
     fn test_extract_numerical_values() {
         let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
         let numbers = extract_numerical_values(sample_content);
-        assert_eq!(numbers, vec![1, 2, 1,2, 8]);
+        assert_eq!(numbers, vec![1, 2, 1, 2, 8]);
     }
 }
