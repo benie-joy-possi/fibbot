@@ -1,5 +1,5 @@
 # Use the official Rust image for building
-FROM rust:latest as build
+FROM rust:latest AS build
 WORKDIR /app
 
 # Copy the Cargo.toml and Cargo.lock files
