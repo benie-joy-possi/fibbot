@@ -28,7 +28,7 @@ fn main() {
         );
         return;
     }
-    let owner = &args[1];
+    let owner = &args[5];
     let repo = &args[2];
     let pr_number: u128 = args[3].parse().expect("Failed to parse pr_number");
     let github_token = args[4].as_str();
@@ -37,6 +37,8 @@ println!("{:?} args", args);
     // .personal_token(github_token)
     // .build()?;
     // println!("{}token",github_token );
+    let repo = repo.split("/").collect::<Vec<&str>>();
+    let repo =repo[1];
 
     let mut comments = String::new();
     let pr_numbers_fetch = fetching_pr(repo, pr_number, github_token).unwrap();
