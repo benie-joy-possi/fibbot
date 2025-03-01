@@ -33,8 +33,8 @@ runs:
   args:
     - ${{ inputs.enable_fib }}
     - ${{ inputs.max_threshold }}
-    - ${{ inputs.github_token }}
+    - ${{ inputs.repository}}
     - ${{ inputs.pr_number }}
-    - ${{ inputs.owner }}
-    - ${{ inputs.repository }}
+    - ${{ inputs.github_token }}
+    - ${{ inputs.owner}}
 
