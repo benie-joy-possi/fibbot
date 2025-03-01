@@ -10,11 +10,26 @@ inputs:
     description: 'Maximum threshold'
     required: true
     default: '1000'
+  github_token:
+    description: 'Github Token for Authentication'
+    default: ''
+  repository:
+    description: 'Github Repsitory'
+    required: true
+    default: ''
+  pr_number:
+    description: 'Pull_Request Number'
+    required: true
+    default: ''
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.enable_fib}}
     - ${{ inputs.max_threshold}}
+    - ${{inputs.github_token}}
+    - ${{inputs.pr_number}}
+    - ${{inputs.owner}}
+    - ${{inputs.repository}}
       
   
