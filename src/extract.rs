@@ -22,6 +22,8 @@ pub async fn fetch_pr_numbers(
     println!("GitHub Token: {}", github_token);
     let repo = repo.split("/").collect::<Vec<&str>>();
     let repo = repo[1];
+    println!("owner {} repo {}", owner, repo);
+    
     let value = octocrab::instance()
         .pulls(owner, repo)
         .list_files(1)
