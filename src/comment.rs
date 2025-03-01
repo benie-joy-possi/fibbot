@@ -18,12 +18,15 @@ pub async fn post_fibonacci_comment(
         
 
     // Post the comment on the PR (PRs are considered issues in GitHub API)
-    octocrab
+    let val = octocrab
         .issues(owner, repo)
         .create_comment(pr_number_u64, &comment_text)
-        .await?;
-
+        .await;
+    if val.is_ok(){
     println!("Comment posted: {}", comment_text);
-
+    }
+    else{
+        eprintln!("Could not comment");
+    }
     Ok(())
 }

@@ -27,7 +27,7 @@ pub fn fibonacci(n: u128) -> u128 {
                         b = result;
                     }
                     None => {
-                        // Handle overflow (e.g., return a specific value or exit)
+                        
                         panic!("Fibonacci calculation overflowed for n={}", n);
                     }
                 }

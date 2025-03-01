@@ -13,14 +13,14 @@ use tokio;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    // // let args: Vec<String> = vec![
-    //     "fibonacci".to_string(),
-    //     "benie-joy-possi".to_string(),
-    //     "fibbot".to_string(),
-    //     "2".to_string(),
-    //     "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".to_string(),
-    // ];
-    let args: Vec<String> = env::args().skip(1).collect();
+    let args: Vec<String> = vec![
+        "fibonacci".to_string(),
+        "benie-joy-possi".to_string(),
+        "benie-joy-possi/fibbot".to_string(),
+        "3".to_string(),
+        "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".to_string(),
+    ];
+    // let args: Vec<String> = env::args().skip(1).collect();
   if args.len() < 4 {
         eprintln!(
             "Usage: {} <owner> <repo> <pr_number> <github_token>",
@@ -37,7 +37,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let octocrab = Octocrab::builder()
     .personal_token(github_token)
     .build()?;
-
+    println!("{}token",github_token );
 
     let pr_numbers_fetch = fetch_pr_numbers(repo, pr_number, &github_token).await?;
     let pr_number_u64: u64 = pr_number.try_into()?;
