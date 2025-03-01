@@ -1,9 +1,8 @@
 use std::error::Error;
 
-use octocrab::Octocrab;
 use regex::Regex;
 
-pub fn extract_numerical_values(content: &str) -> Vec<u64> {
+pub fn extract_numerical_values(content: &str) -> Vec<u128> {
     // Define a regular expression to match numerical values
     let re = Regex::new(r"\b\d+\b").unwrap();
 
@@ -12,12 +11,19 @@ pub fn extract_numerical_values(content: &str) -> Vec<u64> {
         .filter_map(|mat| mat.as_str().parse().ok())
         .collect()
 }
-pub async fn fetch_pr_numbers(owner:&str, repo: &str, pr_number: u64) -> Result<Vec<u64>, Box<dyn Error>> {
-    let octocrab = Octocrab::builder().build()?;
-    let pr = octocrab.pulls(owner,repo).get(pr_number).await?;
-    let body = pr.body.unwrap_or_default();
+pub async fn fetch_pr_numbers(owner:&str, repo: &str, pr_number: u128, github_token: &str) -> Result<Vec<u128>, Box<dyn Error>> {
+    println!("Repository: {}", repo);
+    println!("Pull Request Number: {}", pr_number);
+    println!("GitHub Token: {}", github_token);
 
-    let numbers = extract_numerical_values(&body);
+    let value = octocrab::instance()
+    .pulls(owner, repo)
+    .list_files(1)
+    .await?;
+     let octocrab = &value.items.first().unwrap().patch.clone().unwrap();
+    // let body = octocrab.unwrap_or_default();
+
+    let numbers = extract_numerical_values(&octocrab);
+    println!("numbers {:?}", numbers);
     Ok(numbers)
 }
-
