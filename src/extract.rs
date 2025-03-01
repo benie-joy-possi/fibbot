@@ -20,7 +20,6 @@ pub async fn fetch_pr_numbers(
     println!("Repository: {}", repo);
     println!("Pull Request Number: {}", pr_number);
     println!("GitHub Token: {}", github_token);
-    
 
     let value = octocrab::instance()
         .pulls(owner, repo)

@@ -2,34 +2,34 @@ name: "Arguments Parsing"
 description: "An action to parse input parameters and perform tasks like Fibonacci calculations."
 
 inputs:
-  enable_fib: 
-    description: 'Enable Fibonacci calculation'
+  enable_fib:
+    description: "Enable Fibonacci calculation"
     required: true
-    default: 'true'
+    default: "true"
   max_threshold:
-    description: 'Maximum threshold for Fibonacci calculation'
+    description: "Maximum threshold for Fibonacci calculation"
     required: true
-    default: '1000'
+    default: "1000"
   github_token:
-    description: 'GitHub Token for Authentication'
+    description: "GitHub Token for Authentication"
     required: true
-    default: ''
+    default: ""
   pr_number:
-    description: 'Pull Request Number'
+    description: "Pull Request Number"
     required: true
-    default: '1'
+    default: "1"
   owner:
-    description: 'GitHub Repository Owner'
+    description: "GitHub Repository Owner"
     required: true
-    default: ''
+    default: ""
   repository:
-    description: 'GitHub Repository Name'
+    description: "GitHub Repository Name"
     required: true
-    default: ''
+    default: ""
 
 runs:
-  using: 'docker'  # Corrected the placement of 'docker'
-  image: 'Dockerfile'  # Ensuring this points to a valid Dockerfile in your repo
+  using: "docker"
+  image: "Dockerfile"
   args:
     - ${{ inputs.enable_fib }}
     - ${{ inputs.max_threshold }}
@@ -37,4 +37,3 @@ runs:
     - ${{ inputs.pr_number }}
     - ${{ inputs.github_token }}
     - ${{ inputs.owner}}
-

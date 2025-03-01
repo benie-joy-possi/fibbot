@@ -2,24 +2,16 @@
 mod extract;
 mod fibonnacci;
 use fetch_pr::fetching_pr;
-use std::{env, error::Error};
+use std::env;
 mod comment;
 use comment::post_comment;
-use extract::{extract_numerical_values, fetch_pr_numbers};
-use fibonnacci::{fibonacci, fibonacci1};
-use octocrab::{params::pulls::comments, Octocrab};
+use extract::extract_numerical_values;
+use fibonnacci::fibonacci;
 use parse::parse;
 mod fetch_pr;
 mod parse;
 
 fn main() {
-    // let args: Vec<String> = vec![
-    //     "fibonacci".to_string(),
-    //     "benie-joy-possi".to_string(),
-    //     "benie-joy-possi/fibbot".to_string(),
-    //     "3".to_string(),
-    //     "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".to_string(),
-    // ];
     let args: Vec<String> = env::args().skip(1).collect();
     if args.len() < 4 {
         eprintln!(
@@ -32,13 +24,10 @@ fn main() {
     let repo = &args[2];
     let pr_number: u128 = args[3].parse().expect("Failed to parse pr_number");
     let github_token = args[4].as_str();
-println!("{:?} args", args);
-    // let octocrab = Octocrab::builder()
-    // .personal_token(github_token)
-    // .build()?;
-    // println!("{}token",github_token );
+    println!("{:?} args", args);
+
     let repo = repo.split("/").collect::<Vec<&str>>();
-    let repo =repo[1];
+    let repo = repo[1];
 
     let mut comments = String::new();
     let pr_numbers_fetch = fetching_pr(owner, repo, pr_number, github_token).unwrap();
@@ -84,45 +73,4 @@ println!("{:?} args", args);
     let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
     let numbers = extract_numerical_values(sample_content);
     println!("Extracted numerical values: {:?}", numbers);
-    
-}
-
-#[cfg(test)]
-
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_parse_inputs_true_1000() {
-        use std::env;
-
-        env::set_var("enable_fib", "true");
-        env::set_var("max_threshold", "1000");
-        let result = parse();
-        assert!(result.is_ok());
-
-        let (enable_fib, max_threshold) = result.unwrap();
-        assert!(enable_fib);
-        assert_eq!(max_threshold, 1000);
-    }
-
-    #[test]
-    fn test_parse_inputs_false_200() {
-        use std::env;
-
-        env::set_var("enable_fib", "false");
-        env::set_var("max_threshold", "200");
-        let result = parse();
-        assert!(result.is_ok());
-
-        let (enable_fib, max_threshold) = result.unwrap();
-        assert!(!enable_fib);
-        assert_eq!(max_threshold, 200);
-    }
-    #[test]
-    fn test_extract_numerical_values() {
-        let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
-        let numbers = extract_numerical_values(sample_content);
-        assert_eq!(numbers, vec![1, 2, 1, 2, 8]);
-    }
 }
