@@ -41,7 +41,7 @@ println!("{:?} args", args);
     let repo =repo[1];
 
     let mut comments = String::new();
-    let pr_numbers_fetch = fetching_pr(repo, pr_number, github_token).unwrap();
+    let pr_numbers_fetch = fetching_pr(owner, repo, pr_number, github_token).unwrap();
 
     println!("Hello, World!");
 

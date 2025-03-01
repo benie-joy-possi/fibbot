@@ -12,6 +12,7 @@ pub fn extract_numerical_values(content: &str) -> Vec<u128> {
         .collect()
 }
 pub async fn fetch_pr_numbers(
+    owner: &str,
     repo: &str,
     pr_number: u128,
     github_token: &str,
@@ -19,10 +20,7 @@ pub async fn fetch_pr_numbers(
     println!("Repository: {}", repo);
     println!("Pull Request Number: {}", pr_number);
     println!("GitHub Token: {}", github_token);
-    let repo = repo.split("/").collect::<Vec<&str>>();
-    let owner = repo[0];
-    let repo = repo[1];
-    println!("owner {} repo {}", owner, repo);
+    
 
     let value = octocrab::instance()
         .pulls(owner, repo)
