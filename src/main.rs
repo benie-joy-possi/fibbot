@@ -6,7 +6,7 @@ mod comment;
 use comment::post_comment;
 use extract::{extract_numerical_values, fetch_pr_numbers};
 use fibonnacci::{fibonacci1, fibonacci};
-use octocrab::Octocrab;
+use octocrab::{params::pulls::comments, Octocrab};
 use parse::parse;
 mod parse;
 use tokio;
@@ -69,6 +69,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
                          println!("the fibonacci is : {}", fibonnacci_result);
                         }
                     }   
+                    let _ = post_comment(
+                        &owner.to_string(),
+                        &repo.to_string(),
+                        pr_number,
+                        github_token.to_string(),
+                        comments,
+                    );
                 } else {
                     println!("fibonacci generation has been disabled");
                 }
@@ -76,13 +83,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
             Err(e) => eprintln!("Error: {}", e),
         }
         
-        let _ = post_comment(
-            &owner.to_string(),
-            &repo.to_string(),
-            pr_number,
-            github_token.to_string(),
-            comments,
-        );
+       
         let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
     let numbers = extract_numerical_values(sample_content);
     println!("Extracted numerical values: {:?}", numbers);
