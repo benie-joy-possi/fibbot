@@ -2,23 +2,25 @@
 mod extract;
 mod fibonnacci;
 use std::{env, error::Error};
-
+mod comment;
+use comment::post_fibonacci_comment;
 use extract::{extract_numerical_values, fetch_pr_numbers};
-use fibonnacci::fibonacci;
+use fibonnacci::{fibonacci1, fibonacci};
+use octocrab::Octocrab;
 use parse::parse;
 mod parse;
 use tokio;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    // let args: Vec<String> = vec![
-    //     "fibonacci".to_string(),
-    //     "benie-joy-possi".to_string(),
-    //     "fibbot".to_string(),
-    //     "1".to_string(),
-    //     "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".to_string(),
-    // ];
-    let args: Vec<String> = env::args().skip(1).collect();
+    let args: Vec<String> = vec![
+        "fibonacci".to_string(),
+        "benie-joy-possi".to_string(),
+        "fibbot".to_string(),
+        "2".to_string(),
+        "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".to_string(),
+    ];
+    // let args: Vec<String> = env::args().skip(1).collect();
   if args.len() < 4 {
         eprintln!(
             "Usage: {} <owner> <repo> <pr_number> <github_token>",
@@ -29,19 +31,27 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let owner = &args[1];
     let repo = &args[2];
     let pr_number: u128 = args[3].parse()?;
-    let github_token = &args[4];
+    let github_token = args[4].as_str();
 
     //     let value = octocrab::instance()
     //     .pulls("benie-joy-possi", "fibbot")
     //     .list_files(1)
     //     .await?;
     // println!("{:?}", value);
+    let octocrab = Octocrab::builder()
+    .personal_token(github_token)
+    .build()?;
+
 
     let pr_numbers_fetch = fetch_pr_numbers(owner, repo, pr_number, &github_token).await?;
-
+    let pr_number_u64: u64 = pr_number.try_into()?;
     for &num in &pr_numbers_fetch {
+        if num <30 {
+            let post = post_fibonacci_comment(&octocrab, owner, repo, pr_number_u64, num);
         let fibonnacci_result = fibonacci(num);
         println!("the fibonacci is : {}", fibonnacci_result);
+        }
+        
     }
     println!("Hello, World!");
 

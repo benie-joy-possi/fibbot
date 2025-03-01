@@ -1,4 +1,4 @@
-pub fn fibonacci(num: u128) -> u128 {
+pub fn fibonacci1(num: u128) -> u128 {
     if num == 0 {
         return 0;
     } else if num  == 1 {
@@ -12,4 +12,27 @@ pub fn fibonacci(num: u128) -> u128 {
         num_b = temporal
     }
     num_b
+}
+pub fn fibonacci(n: u128) -> u128 {
+    match n {
+        0 => 0,
+        1 => 1,
+        _ => {
+            let mut a: u128 = 0;
+            let mut b: u128 = 1;
+            for _ in 2..=n {
+                match a.checked_add(b) {
+                    Some(result) => {
+                        a = b;
+                        b = result;
+                    }
+                    None => {
+                        // Handle overflow (e.g., return a specific value or exit)
+                        panic!("Fibonacci calculation overflowed for n={}", n);
+                    }
+                }
+            }
+            b
+        }
+    }
 }
