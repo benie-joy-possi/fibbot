@@ -1,18 +1,18 @@
 // mod comment;
 mod extract;
 mod fibonnacci;
+use fetch_pr::fetching_pr;
 use std::{env, error::Error};
 mod comment;
 use comment::post_comment;
 use extract::{extract_numerical_values, fetch_pr_numbers};
-use fibonnacci::{fibonacci1, fibonacci};
+use fibonnacci::{fibonacci, fibonacci1};
 use octocrab::{params::pulls::comments, Octocrab};
 use parse::parse;
+mod fetch_pr;
 mod parse;
-use tokio;
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
+fn main() {
     // let args: Vec<String> = vec![
     //     "fibonacci".to_string(),
     //     "benie-joy-possi".to_string(),
@@ -21,29 +21,26 @@ async fn main() -> Result<(), Box<dyn Error>> {
     //     "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".to_string(),
     // ];
     let args: Vec<String> = env::args().skip(1).collect();
-  if args.len() < 4 {
+    if args.len() < 4 {
         eprintln!(
             "Usage: {} <owner> <repo> <pr_number> <github_token>",
             args[0]
         );
-        return Err("Invalid arguments".into());
+        return;
     }
     let owner = &args[1];
     let repo = &args[2];
-    let pr_number: u128 = args[3].parse()?;
+    let pr_number: u128 = args[3].parse().expect("Failed to parse pr_number");
     let github_token = args[4].as_str();
 
-    
-    let octocrab = Octocrab::builder()
-    .personal_token(github_token)
-    .build()?;
-    println!("{}token",github_token );
+    // let octocrab = Octocrab::builder()
+    // .personal_token(github_token)
+    // .build()?;
+    // println!("{}token",github_token );
 
-    let pr_numbers_fetch = fetch_pr_numbers(repo, pr_number, &github_token).await?;
-    let pr_number_u64: u64 = pr_number.try_into()?;
     let mut comments = String::new();
-    
-    
+    let pr_numbers_fetch = fetching_pr(repo, pr_number, github_token).unwrap();
+
     println!("Hello, World!");
 
     match parse() {
@@ -58,36 +55,34 @@ async fn main() -> Result<(), Box<dyn Error>> {
             if enable_fib {
                 println!("fibbonacci genration is up to {}", max_threshold);
                 for &num in &pr_numbers_fetch {
-                    if num < max_threshold
-                     {
+                    if num < max_threshold {
                         let fib_numb = fibonacci(num);
                         let comment = format!("The fibonnaci number of {} is  : {}", num, fib_numb);
-            
+
                         comments.push_str(format!("{}\n", comment).as_str());
-            
-                         let fibonnacci_result = fibonacci(num);
-                         println!("the fibonacci is : {}", fibonnacci_result);
-                        }
-                    }   
-                    let _ = post_comment(
-                        &owner.to_string(),
-                        &repo.to_string(),
-                        pr_number,
-                        github_token.to_string(),
-                        comments,
-                    );
-                } else {
-                    println!("fibonacci generation has been disabled");
+
+                        let fibonnacci_result = fibonacci(num);
+                        println!("the fibonacci is : {}", fibonnacci_result);
+                    }
                 }
+                let _ = post_comment(
+                    &owner.to_string(),
+                    &repo.to_string(),
+                    pr_number,
+                    github_token.to_string(),
+                    comments,
+                );
+            } else {
+                println!("fibonacci generation has been disabled");
             }
-            Err(e) => eprintln!("Error: {}", e),
         }
-        
-       
-        let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
+        Err(e) => eprintln!("Error: {}", e),
+    }
+
+    let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
     let numbers = extract_numerical_values(sample_content);
     println!("Extracted numerical values: {:?}", numbers);
-    Ok(())
+    
 }
 
 #[cfg(test)]

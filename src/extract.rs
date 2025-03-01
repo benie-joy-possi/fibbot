@@ -23,7 +23,7 @@ pub async fn fetch_pr_numbers(
     let owner = repo[0];
     let repo = repo[1];
     println!("owner {} repo {}", owner, repo);
-    
+
     let value = octocrab::instance()
         .pulls(owner, repo)
         .list_files(1)
