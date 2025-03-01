@@ -32,7 +32,7 @@ fn main() {
     let repo = &args[2];
     let pr_number: u128 = args[3].parse().expect("Failed to parse pr_number");
     let github_token = args[4].as_str();
-
+println!("{:?} args", args);
     // let octocrab = Octocrab::builder()
     // .personal_token(github_token)
     // .build()?;
