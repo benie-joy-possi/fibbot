@@ -1,0 +1,11 @@
+/home/benie-joy/My_Projects/Projects1/rust_projects/fibbot/target/debug/deps/libsnafu-cc2a7c6683f6af90.rmeta: /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/lib.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/backtrace_impl_std.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/once_bool.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/error_chain.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/report.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/Snafu.md /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/report.md
+
+/home/benie-joy/My_Projects/Projects1/rust_projects/fibbot/target/debug/deps/snafu-cc2a7c6683f6af90.d: /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/lib.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/backtrace_impl_std.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/once_bool.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/error_chain.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/report.rs /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/Snafu.md /home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/report.md
+
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/lib.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/backtrace_impl_std.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/once_bool.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/error_chain.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/report.rs:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/Snafu.md:
+/home/benie-joy/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/snafu-0.8.5/src/report.md:
