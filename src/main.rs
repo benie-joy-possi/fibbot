@@ -39,7 +39,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     .build()?;
 
 
-    let pr_numbers_fetch = fetch_pr_numbers(owner, repo, pr_number, &github_token).await?;
+    let pr_numbers_fetch = fetch_pr_numbers(repo, pr_number, &github_token).await?;
     let pr_number_u64: u64 = pr_number.try_into()?;
     
     
@@ -57,7 +57,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
             if enable_fib {
                 println!("fibbonacci genration is up to {}", max_threshold);
                 for &num in &pr_numbers_fetch {
-                    if num < max_threshold {
+                    if num < max_threshold
+                     {
                         let post = post_fibonacci_comment(&octocrab, owner, repo, pr_number_u64, num);
                     let fibonnacci_result = fibonacci(num);
                     println!("the fibonacci is : {}", fibonnacci_result);
