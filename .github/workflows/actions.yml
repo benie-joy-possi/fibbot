@@ -1,17 +1,22 @@
-# .github/workflows/test-action.yml
 name: Test Hello World Rust Action, Test input parsing
 
 on:
-  push:
-    branches:
-      - main
+
   pull_request:
     branches:
       - main
 
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
-  test-action:
+  build-and-run:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
 
     steps:
       - name: Checkout repository
@@ -22,5 +27,7 @@ jobs:
         with:
           enable_fib: 'true'
           max_threshold: '1000'
-        
-        
+          pr_number: ${{ github.event.pull_request.number }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          owner: ${{ github.repository_owner }}
+          repository: ${{ github.repository }}
