@@ -29,7 +29,7 @@ inputs:
 
 runs:
   using: "docker"
-  image: "Dockerfile"
+  image: "aDockerfile"
   args:
     - ${{ inputs.enable_fib }}
     - ${{ inputs.max_threshold }}
