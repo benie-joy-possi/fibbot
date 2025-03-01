@@ -13,11 +13,11 @@ use tokio;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    // // let args: Vec<String> = vec![
+    // let args: Vec<String> = vec![
     //     "fibonacci".to_string(),
     //     "benie-joy-possi".to_string(),
-    //     "fibbot".to_string(),
-    //     "2".to_string(),
+    //     "benie-joy-possi/fibbot".to_string(),
+    //     "3".to_string(),
     //     "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".to_string(),
     // ];
     let args: Vec<String> = env::args().skip(1).collect();
@@ -33,26 +33,16 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let pr_number: u128 = args[3].parse()?;
     let github_token = args[4].as_str();
 
-    //     let value = octocrab::instance()
-    //     .pulls("benie-joy-possi", "fibbot")
-    //     .list_files(1)
-    //     .await?;
-    // println!("{:?}", value);
+    
     let octocrab = Octocrab::builder()
     .personal_token(github_token)
     .build()?;
+    println!("{}token",github_token );
 
-
-    let pr_numbers_fetch = fetch_pr_numbers(owner, repo, pr_number, &github_token).await?;
+    let pr_numbers_fetch = fetch_pr_numbers(repo, pr_number, &github_token).await?;
     let pr_number_u64: u64 = pr_number.try_into()?;
-    for &num in &pr_numbers_fetch {
-        if num <30 {
-            let post = post_fibonacci_comment(&octocrab, owner, repo, pr_number_u64, num);
-        let fibonnacci_result = fibonacci(num);
-        println!("the fibonacci is : {}", fibonnacci_result);
-        }
-        
-    }
+    
+    
     println!("Hello, World!");
 
     match parse() {
@@ -66,6 +56,14 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
             if enable_fib {
                 println!("fibbonacci genration is up to {}", max_threshold);
+                for &num in &pr_numbers_fetch {
+                    if num < max_threshold
+                     {
+                        let post = post_fibonacci_comment(&octocrab, owner, repo, pr_number_u64, num);
+                    let fibonnacci_result = fibonacci(num);
+                    println!("the fibonacci is : {}", fibonnacci_result);
+                    }
+                }   
             } else {
                 println!("fibonacci generation has been disabled");
             }
