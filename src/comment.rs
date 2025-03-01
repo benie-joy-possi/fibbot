@@ -1,29 +1,37 @@
-use octocrab::{Octocrab};
-use crate::fibonacci;
-use tokio;
+use reqwest::{Client, Error};
+use serde::Serialize;
+#[derive(Serialize)]
+struct Comment {
+    body: String,
+}
 
-pub async fn post_fibonacci_comment(
-    octocrab: &Octocrab,
+#[tokio::main]
+pub async fn post_comment(
     owner: &str,
     repo: &str,
-    pr_number: u64,
-    n: u128,
-) -> Result<(), Box<dyn std::error::Error>> {
-    // Calculate Fibonacci number
-    let fibo_number = fibonacci(n);
+    pr_number: u128,
+    github_token: String,
+    comments: String,
+) -> Result<String, Error> {
+ 
 
-    // Prepare the comment text
-    let comment_text = format!("Fibonacci number at position {} is: {}", n, fibo_number);
-    let pr_number_u64: u64 = pr_number.try_into()?;
-        
+    let client = Client::new();
 
-    // Post the comment on the PR (PRs are considered issues in GitHub API)
-    octocrab
-        .issues(owner, repo)
-        .create_comment(pr_number_u64, &comment_text)
+    let comment = Comment { body: comments };
+
+    let response = client
+        .post(format!(
+            "https://api.github.com/repos/{owner}/{repo}/issues/{pr_number}/comments"
+        ))
+        .header("Accept", "application/vnd.github+json")
+        .header("Authorization", format!("Bearer {}", github_token).as_str())
+        .header("X-GitHub-Api-Version", "2022-11-28")
+        .header("User-Agent", format!("{}", owner).as_str())
+        .json(&comment)
+        .send()
         .await?;
 
-    println!("Comment posted: {}", comment_text);
+    println!("{:#?}", response);
 
-    Ok(())
+    Ok(comment.body)
 }

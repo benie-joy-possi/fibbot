@@ -1,38 +1,41 @@
-pub fn fibonacci1(num: u128) -> u128 {
+use num_bigint::{BigUint, ToBigUint};
+
+/// Computes the nth Fibonacci number using BigInt.
+pub fn fibonacci(num: u128) -> BigUint {
+    let mut num_a: BigUint = 0.to_biguint().unwrap();
+    let mut num_b = 1.to_biguint().unwrap();
+
     if num == 0 {
-        return 0;
-    } else if num  == 1 {
-        return 1;
-    }
-    let mut num_a = 0;
-    let mut num_b = 1;
-    for _ in 2..=num {
-        let temporal = num_a + num_b;
-        num_a = num_b;
-        num_b = temporal
-    }
-    num_b
-}
-pub fn fibonacci(n: u128) -> u128 {
-    match n {
-        0 => 0,
-        1 => 1,
-        _ => {
-            let mut a: u128 = 0;
-            let mut b: u128 = 1;
-            for _ in 2..=n {
-                match a.checked_add(b) {
-                    Some(result) => {
-                        a = b;
-                        b = result;
-                    }
-                    None => {
-                        // Handle overflow (e.g., return a specific value or exit)
-                        panic!("Fibonacci calculation overflowed for n={}", n);
-                    }
-                }
-            }
-            b
+        num_a
+    } else if num == 1 {
+        num_b
+    } else {
+        for _ in 2..=num {
+            let next = &num_a + &num_b;
+            num_a = num_b;
+            num_b = next;
         }
+
+        num_b
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::str::FromStr;
+
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        assert_eq!(
+            fibonacci(100),
+            BigUint::from_str("354224848179261915075").unwrap()
+        );
+        assert_eq!(
+            fibonacci(1000),
+            BigUint::from_str("6885276750752098298969649928516003704476137795166849228875")
+                .unwrap()
+        );
     }
 }
