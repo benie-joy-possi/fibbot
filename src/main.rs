@@ -3,7 +3,7 @@ mod extract;
 mod fibonnacci;
 use std::{env, error::Error};
 mod comment;
-use comment::post_fibonacci_comment;
+use comment::post_comment;
 use extract::{extract_numerical_values, fetch_pr_numbers};
 use fibonnacci::{fibonacci1, fibonacci};
 use octocrab::Octocrab;
@@ -41,6 +41,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let pr_numbers_fetch = fetch_pr_numbers(repo, pr_number, &github_token).await?;
     let pr_number_u64: u64 = pr_number.try_into()?;
+    let mut comments = String::new();
     
     
     println!("Hello, World!");
@@ -59,19 +60,30 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 for &num in &pr_numbers_fetch {
                     if num < max_threshold
                      {
-                        let post = post_fibonacci_comment(&octocrab, owner, repo, pr_number_u64, num);
-                    let fibonnacci_result = fibonacci(num);
-                    println!("the fibonacci is : {}", fibonnacci_result);
-                    }
-                }   
-            } else {
-                println!("fibonacci generation has been disabled");
+                        let fib_numb = fibonacci(num);
+                        let comment = format!("The fibonnaci number of {} is  : {}", num, fib_numb);
+            
+                        comments.push_str(format!("{}\n", comment).as_str());
+            
+                         let fibonnacci_result = fibonacci(num);
+                         println!("the fibonacci is : {}", fibonnacci_result);
+                        }
+                    }   
+                } else {
+                    println!("fibonacci generation has been disabled");
+                }
             }
+            Err(e) => eprintln!("Error: {}", e),
         }
-        Err(e) => eprintln!("Error: {}", e),
-    }
-
-    let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
+        
+        let _ = post_comment(
+            &owner.to_string(),
+            &repo.to_string(),
+            pr_number,
+            github_token.to_string(),
+            comments,
+        );
+        let sample_content = "This extract function extract 1, 2 or many numbers in a string 1 2 8";
     let numbers = extract_numerical_values(sample_content);
     println!("Extracted numerical values: {:?}", numbers);
     Ok(())
