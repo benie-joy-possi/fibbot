@@ -9,25 +9,35 @@ use parse::parse;
 mod parse;
 use tokio;
 
-
-
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 4{
-        eprintln!("Usage: {} <owner> <repo> <pr_number> <github_token>", args[0]);
+    // let args: Vec<String> = vec![
+    //     "fibonacci".to_string(),
+    //     "benie-joy-possi".to_string(),
+    //     "fibbot".to_string(),
+    //     "1".to_string(),
+    //     "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".to_string(),
+    // ];
+    let args: Vec<String> = env::args().skip(1).collect();
+  if args.len() < 4 {
+        eprintln!(
+            "Usage: {} <owner> <repo> <pr_number> <github_token>",
+            args[0]
+        );
         return Err("Invalid arguments".into());
     }
     let owner = &args[1];
     let repo = &args[2];
-    let pr_number: u64 = args[3].parse()?;
-    // let github_token = &args[4];
+    let pr_number: u128 = args[3].parse()?;
+    let github_token = &args[4];
 
-    // let octocrab = octocrab::Octocrab::builder()
-    //     .personal_token(github_token.to_string())
-    //     .build()?;
+    //     let value = octocrab::instance()
+    //     .pulls("benie-joy-possi", "fibbot")
+    //     .list_files(1)
+    //     .await?;
+    // println!("{:?}", value);
 
-    let pr_numbers_fetch = fetch_pr_numbers(owner, repo, pr_number).await?;
+    let pr_numbers_fetch = fetch_pr_numbers(owner, repo, pr_number, &github_token).await?;
 
     for &num in &pr_numbers_fetch {
         let fibonnacci_result = fibonacci(num);
