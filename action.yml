@@ -28,8 +28,8 @@ inputs:
     default: ''
 
 runs:
-  using: 'docker'  # Corrected the placement of 'docker'
-  image: 'Dockerfile'  # Ensuring this points to a valid Dockerfile in your repo
+  using: 'docker'  
+  image: 'Dockerfile'  
   args:
     - ${{ inputs.enable_fib }}
     - ${{ inputs.max_threshold }}
