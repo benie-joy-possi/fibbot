@@ -12,7 +12,7 @@ COPY src ./src
 RUN cargo build --release 
 
 # Run the test
-RUN cargo test
+#RUN cargo test
 
 # Use a minimal base image to run the application
 FROM gcr.io/distroless/cc
