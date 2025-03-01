@@ -13,14 +13,14 @@ use tokio;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let args: Vec<String> = vec![
-        "fibonacci".to_string(),
-        "benie-joy-possi".to_string(),
-        "benie-joy-possi/fibbot".to_string(),
-        "3".to_string(),
-        "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".to_string(),
-    ];
-    // let args: Vec<String> = env::args().skip(1).collect();
+    // let args: Vec<String> = vec![
+    //     "fibonacci".to_string(),
+    //     "benie-joy-possi".to_string(),
+    //     "benie-joy-possi/fibbot".to_string(),
+    //     "3".to_string(),
+    //     "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".to_string(),
+    // ];
+    let args: Vec<String> = env::args().skip(1).collect();
   if args.len() < 4 {
         eprintln!(
             "Usage: {} <owner> <repo> <pr_number> <github_token>",
