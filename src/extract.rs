@@ -11,16 +11,22 @@ pub fn extract_numerical_values(content: &str) -> Vec<u128> {
         .filter_map(|mat| mat.as_str().parse().ok())
         .collect()
 }
-pub async fn fetch_pr_numbers(owner:&str, repo: &str, pr_number: u128, github_token: &str) -> Result<Vec<u128>, Box<dyn Error>> {
+pub async fn fetch_pr_numbers(
+    owner: &str,
+    repo: &str,
+    pr_number: u128,
+    github_token: &str,
+) -> Result<Vec<u128>, Box<dyn Error>> {
     println!("Repository: {}", repo);
     println!("Pull Request Number: {}", pr_number);
     println!("GitHub Token: {}", github_token);
-
+    let repo = repo.split("/").collect::<Vec<&str>>();
+    let repo = repo[1];
     let value = octocrab::instance()
-    .pulls(owner, repo)
-    .list_files(1)
-    .await?;
-     let octocrab = &value.items.first().unwrap().patch.clone().unwrap();
+        .pulls(owner, repo)
+        .list_files(1)
+        .await?;
+    let octocrab = &value.items.first().unwrap().patch.clone().unwrap();
     // let body = octocrab.unwrap_or_default();
 
     let numbers = extract_numerical_values(&octocrab);
